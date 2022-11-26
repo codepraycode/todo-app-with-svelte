@@ -1,5 +1,6 @@
 <script>
     import FilterButtons from './components/FilterButton.svelte';
+    import MoreActions from './components/MoreActions.svelte';
     import Todo from './components/Todo.svelte';
 
     let todos = [
@@ -46,6 +47,13 @@
 
         todos[i] = {...todo[i], ...todo};
     }
+    
+    const checkAllTodos = (completed)=> {
+        
+        todos = todos.map((t)=>( {...t,completed} ))
+    };
+
+    const removeCompletedTodos = ()=> todos = todos.filter(t=>!t.completed);
 
     // Filtering feature
     let filter = 'all';
@@ -139,16 +147,9 @@
     <hr/>
 
     <!-- More actions -->
-    <div class="btn-group">
-
-        <button type="button" class="btn btn__primary">
-            Check all
-        </button>
-
-        <button type="button" class="btn btn__primary">
-            Remove completed
-        </button>
-
-    </div>
+    <MoreActions 
+        on:checkAll={e=> checkAllTodos(e.detail)}
+        on:removeCompleted={removeCompletedTodos}
+    />
 
 </div>

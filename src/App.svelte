@@ -78,6 +78,7 @@
 
     <NewTodo
         on:addTodo={e=>addTodo(e.detail)}
+        autofocus
     />
 
 

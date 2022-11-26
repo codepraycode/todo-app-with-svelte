@@ -1,5 +1,7 @@
 <script>
-    import {createEventDispatcher} from 'svelte';
+    import {createEventDispatcher, onMount} from 'svelte';
+
+    export let autofocus = false;
 
     const dispatch = createEventDispatcher();
 
@@ -20,6 +22,9 @@
         nameElement.focus();
 
     };
+
+    onMount(()=> autofocus && nameElement.focus());
+
 </script>
 
 

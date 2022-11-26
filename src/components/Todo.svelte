@@ -1,5 +1,7 @@
 <script>
 
+    import FilterButtons from './FilterButton.svelte';
+
     // Make todo a prop
     export let todos = [];
 
@@ -88,43 +90,9 @@
 
 
     <!-- Filter -->
-    <div class="filters btn-group stack-exception">
-        
-        <button 
-            class="btn toggle-btn" 
-            aria-pressed={filter === 'all'}
-            class:btn__primary={filter === 'all'}
-            on:click={()=>filter='all'}
-        >
-            <span class="visually-hidden">Show</span>
-            <span>All</span>
-            <span class="visually-hidden">tasks</span>
-        </button>
-
-
-        <button 
-            class="btn toggle-btn" 
-            aria-pressed={filter === 'active'}
-            class:btn__primary={filter === 'active'}
-            on:click={()=>filter='active'}
-        >
-            <span class="visually-hidden">Show</span>
-            <span>Active</span>
-            <span class="visually-hidden">tasks</span>
-        </button>
-
-        <button 
-            class="btn toggle-btn" 
-            aria-pressed={filter === 'completed'}
-            class:btn__primary={filter === 'completed'}
-            on:click={()=>filter='completed'}
-        >
-            <span class="visually-hidden">Show</span>
-            <span>Completed</span>
-            <span class="visually-hidden">tasks</span>
-        </button>
-
-    </div>
+    <FilterButtons bind:filter={filter} />
+    
+    <!-- {filter} onclick={ (clicked)=> filter = clicked }/> -->
 
     <!-- Todo status -->
     <h2 id="list-heading">{completedTodos} out of {totalTodos} items completed</h2>

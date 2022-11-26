@@ -1,6 +1,7 @@
 <script>
     import FilterButtons from './components/FilterButton.svelte';
     import MoreActions from './components/MoreActions.svelte';
+    import NewTodo from './components/NewTodo.svelte';
     import Todo from './components/Todo.svelte';
 
     let todos = [
@@ -32,12 +33,11 @@
         todos = todos.filter((t)=>t.id !== todo.id);
     }
 
-    function addTodo(){
-        todos = [...todos, {
-            id:newTodoId,
-            name:newTodoName,
-            completed:false,
-        }];
+    function addTodo(name){
+        todos = [
+            ...todos,
+            { id:newTodoId, name, completed:false}
+        ];
 
         newTodoName = '';
     }
@@ -76,39 +76,9 @@
 <div class="todoapp stack-large">
     <!-- New todo -->
 
-    <form on:submit|preventDefault={addTodo}>
-
-        <h2 class="label-wrapper">
-            <label for="todo-0" class="label__lg">
-                What needs to be done?
-            </label>
-        </h2>
-
-
-        <!-- 
-            Binding value to input
-            
-            Method one-> on:keydown={(e)=>newTodoName=e.target.value}
-            
-            Method two-> bind:value={newTodoName}
-                with value prop removed
-
-
-         -->
-        <input 
-            type="text"
-            id="todo-0"
-            autocomplete="off"
-            class="input input__lg"
-            bind:value={newTodoName}
-        />
-        
-
-        <button type="submit" disabled="" 
-            class="btn btn__primary btn__lg">
-            Add
-        </button>
-    </form>
+    <NewTodo
+        on:addTodo={e=>addTodo(e.detail)}
+    />
 
 
     <!-- Filter -->

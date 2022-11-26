@@ -4,15 +4,22 @@
     const dispatch = createEventDispatcher();
 
     let name = '';
+    let nameElement; // reference to the input DOM node
 
     const addTodo = () =>{
         dispatch('addTodo', name);
 
         name = '';
+        nameElement.focus();
     }
 
 
-    const onCancel = () => name = '';
+    const onCancel = () => {
+        
+        name = '';
+        nameElement.focus();
+
+    };
 </script>
 
 
@@ -44,6 +51,7 @@
         autocomplete="off"
         class="input input__lg"
         bind:value={name}
+        bind:this={nameElement}
     />
     
 

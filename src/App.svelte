@@ -1,7 +1,6 @@
 <script>
     import FilterButtons from './components/FilterButton.svelte';
     import Todo from './components/Todo.svelte';
-    import Todos from './components/Todo.svelte';
 
     let todos = [
         { id: 1, name: "Create a Svelte starter app", completed: true },
@@ -40,6 +39,12 @@
         }];
 
         newTodoName = '';
+    }
+
+    function updateTodo(todo){
+        const i = todos.findIndex(t=>t.id === todo.id);
+
+        todos[i] = {...todo[i], ...todo};
     }
 
     // Filtering feature
@@ -115,7 +120,11 @@
 
 
             <li class="todo">
-                <Todo {todo} on:remove={e=>removeTodo(e.detail)}/>
+                <Todo 
+                    {todo} 
+                    on:remove={e=>removeTodo(e.detail)}
+                    on:update={e=>updateTodo(e.detail)}
+                />
 
             </li>
 

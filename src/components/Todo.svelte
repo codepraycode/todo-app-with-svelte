@@ -1,7 +1,7 @@
 <script>
-    import { createEventDispatcher,tick } from 'svelte';
-    import {selectOnFocus} from '../action';
-    
+    import { createEventDispatcher } from 'svelte';
+    import {focusOnInit, selectOnFocus} from '../action';
+
     export let todo;
     
     const dispatch = createEventDispatcher();
@@ -37,9 +37,9 @@
     async function onEdit (){
         editing = true;
 
-        await tick();
+        // await tick();
 
-        nameElement.focus();
+        // nameElement.focus();
         
     }
 
@@ -74,6 +74,7 @@
                     bind:value={name}
                     bind:this={nameElement}
                     use:selectOnFocus
+                    use:focusOnInit
                 />
 
             </div>

@@ -11,3 +11,6 @@ export function selectOnFocus(node) {
         }
     }
 }
+
+
+export const focusOnInit = (node) => node && typeof node.focus === 'function' && node.focus();

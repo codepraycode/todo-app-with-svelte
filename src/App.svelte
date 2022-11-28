@@ -1,5 +1,6 @@
 <script>
     import Todos from "./Todos.svelte";
+    import Alert from './components/Alert.svelte';
 
 
     let todos = [
@@ -11,4 +12,5 @@
 </script>
 
 <!-- <Todos {todos}/> -->
+<Alert />
 <Todos {todos}/>

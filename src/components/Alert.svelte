@@ -1,6 +1,7 @@
 <script>
     import {alert} from '../stores';
     import {onDestroy} from 'svelte';
+    import {fly} from 'svelte/transition';
 
     export let ms = 3000; // 3 seconds
     let visible;
@@ -33,7 +34,13 @@
 </script>
 
 {#if visible}
-    <div role="alert" on:click={() => visible = false} on:keydown={()=>{}}>
+    <div 
+        role="alert" 
+        transition:fly={{delay:250, duration:300, x:0, y:-100, opacity:0.5}}
+        on:click={() => visible = false} 
+        on:keydown={()=>{}}
+
+    >
         <svg
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 20 20"

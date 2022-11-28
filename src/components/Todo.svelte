@@ -10,6 +10,10 @@
     let name = todo.name // hold the name of the to-do being edited
     let nameElement; // reference to the name input DOM node
 
+    // track if the edit button has been pressed,
+    // to give focus to it after cancel or save
+    let editButtonPressed = false;
+
 
 
     function update(updatedTodo){
@@ -35,6 +39,9 @@
     }
 
     async function onEdit (){
+        // User pressed the edit button, focus will come back to the
+        // edit button
+        editButtonPressed = true;
         editing = true;
 
         // await tick();
@@ -46,6 +53,8 @@
     function onToggle(){
         update({completed: !todo.completed});
     }
+
+    const focusEditButton = (node) => editButtonPressed && node.focus();
 
 </script>
 
@@ -117,7 +126,12 @@
         
         <div class="btn-group">
             
-            <button class="btn" type="button" on:click={onEdit}>
+            <button 
+                class="btn" 
+                type="button" 
+                on:click={onEdit}
+                use:focusEditButton
+            >
                 Edit
 
                 <span class="visually-hidden">

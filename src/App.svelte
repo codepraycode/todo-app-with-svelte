@@ -3,6 +3,7 @@
     import MoreActions from './components/MoreActions.svelte';
     import NewTodo from './components/NewTodo.svelte';
     import Todo from './components/Todo.svelte';
+    import TodosStatus from './components/TodosStatus.svelte';
 
     let todos = [
         { id: 1, name: "Create a Svelte starter app", completed: true },
@@ -10,27 +11,19 @@
         { id: 3, name: "Complete the rest of the tutorial", completed: false }
     ];
 
+    let todoStatus; // reference to TodosStatus instance
+
     // Make todo a prop
     // export let todos = [];
 
     // $: sets a prop to reactivate mode to run on each re-render
-    $: totalTodos = todos.length;
-    $: completedTodos = todos.filter((todo)=>todo.completed).length;
 
     let newTodoName = '';
-    let newTodoId;
-
-    $:{
-        if (totalTodos === 0){
-            newTodoId = 1;
-        }else{
-            newTodoId = Math.max(...todos.map((t)=>t.id)) + 1;
-        }
-    }
-    // $: console.log(newTodoName);
+    $: newTodoId = todos.length ? Math.max(...todos.map(t=>t.id)) + 1: 1;
 
     function removeTodo(todo){
         todos = todos.filter((t)=>t.id !== todo.id);
+        todoStatus.focus(); //give focus to status heading
     }
 
     function addTodo(name){
@@ -84,11 +77,9 @@
 
     <!-- Filter -->
     <FilterButtons bind:filter={filter} />
-    
-    <!-- {filter} onclick={ (clicked)=> filter = clicked }/> -->
 
     <!-- Todo status -->
-    <h2 id="list-heading">{completedTodos} out of {totalTodos} items completed</h2>
+    <TodosStatus {todos} bind:this={todoStatus} />
 
     <!-- Todos -->
     <ul 
